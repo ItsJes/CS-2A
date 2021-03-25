@@ -1,0 +1,213 @@
+// Lab 5 String Theory
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// methods
+char getKeyLetter();
+string getString();
+string maskLetter(string theString, char keyLetter);
+string removeLetter(string theString, char keyLetter);
+int countKey(string theString, char keyLetter);
+
+int main()
+{
+   char keyLetter;
+   string theString;
+
+   theString = getString();
+   keyLetter = getKeyLetter();
+
+   string masked = maskLetter(theString, keyLetter);
+   string removed = removeLetter(theString, keyLetter);
+   int count = countKey(theString, keyLetter);
+
+   // Output
+   cout << "\nString with '" << keyLetter << "' masked:\n" << masked << "\n\n";
+   cout << "String with '" << keyLetter << "' removed:\n" << removed << "\n\n";
+   cout << "Number of " << keyLetter << "'s:\n" << count << "\n\n";
+
+   return 0;
+}
+
+//Input
+char getKeyLetter()
+{
+   string letter;
+   char keyLetter;
+   int minSize = 1;
+
+   do
+   {
+      cout << "\nPlease enter a SINGLE letter to act as key:\n";
+      getline(cin, letter);
+   } 
+   while (letter.length() != minSize);
+
+   keyLetter = letter[0]; // Turns string to char
+
+   return keyLetter;
+}
+
+string getString()
+{
+   string theString;
+   int minSize = 4;
+
+   do
+   {
+      cout << "Please enter a phrase or sentence of " << minSize << " or more letters: \n";
+      getline(cin, theString);
+   } 
+   while (theString.length() < minSize);
+
+   return theString;
+}
+
+/* Method that replaces all chosen letters 
+in the string written with - */
+
+string maskLetter(string theString, char keyLetter)
+{
+   string masked;
+
+   for (int let = 0; let < theString.length(); let++)
+   {
+      if (theString[let] == keyLetter)
+         masked += '-';
+
+      else
+         masked += theString[let];
+   }
+
+   return masked;
+}
+
+// Method that removes all chosen letter in the string written
+
+string removeLetter(string theString, char keyLetter)
+{
+   string removed;
+
+   for (int let = 0; let < theString.length(); let++)
+   {
+      if (theString[let] == keyLetter)
+         removed += ' ';
+
+      else
+         removed += theString[let];
+   }
+
+   return removed;
+}
+
+/*Method that counts how many of the
+chosen letter is in the string written*/
+
+int countKey(string theString, char keyLetter)
+{
+   int count = 0;
+
+   for (int let = 0; let < theString.length(); let++)
+
+      if (theString[let] == keyLetter)
+         count++;
+
+   return count;
+}
+
+/*----------------------------- Posted Run # 1 --------------------------------------
+
+Please enter a phrase or sentence of 4 or more letters:
+I'm cuckoo for cocoa puffs!
+
+Please enter a SINGLE letter to act as key:
+c
+
+String with 'c' masked:
+I'm -u-koo for -o-oa puffs!
+
+String with 'c' removed:
+I'm  u koo for  o oa puffs!
+
+Number of c's:
+4
+
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+/*----------------------------- Posted Run # 2 --------------------------------------
+
+Please enter a phrase or sentence of 4 or more letters:
+Boop Oop A Doop
+
+Please enter a SINGLE letter to act as key:
+o
+
+String with 'o' masked:
+B--p O-p A D--p
+
+String with 'o' removed:
+B  p O p A D  p
+
+Number of o's:
+5
+
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+/*----------------------------- Posted Run # 3 --------------------------------------
+
+Please enter a phrase or sentence of 4 or more letters:
+Sorry Silly Rabbit, Trix are for kids!
+
+Please enter a SINGLE letter to act as key:
+i
+
+String with 'i' masked:
+Sorry S-lly Rabb-t, Tr-x are for k-ds!
+
+String with 'i' removed:
+Sorry S lly Rabb t, Tr x are for k ds!
+
+Number of i's:
+4
+
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+/*----------------------------- Posted Run # 4 Errors --------------------------------------
+
+Please enter a phrase or sentence of 4 or more letters:
+tr
+Please enter a phrase or sentence of 4 or more letters:
+
+Please enter a phrase or sentence of 4 or more letters:
+Press any key to start. Where is the 'any' key!?!
+
+Please enter a SINGLE letter to act as key:
+
+
+Please enter a SINGLE letter to act as key:
+re
+
+Please enter a SINGLE letter to act as key:
+e
+
+String with 'e' masked:
+Pr-ss any k-y to start. Wh-r- is th- 'any' k-y!?!
+
+String with 'e' removed:
+Pr ss any k y to start. Wh r  is th  'any' k y!?!
+
+Number of e's:
+6
+
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/

@@ -1,0 +1,275 @@
+ else if (response == "S" || response == "s")
+   {
+      cout << "You have decided to not make a pruchase.\n"
+         << "Good-bye.";
+      break;
+   }
+
+}
+   while (response == "P" || response == "p" || response == "S" || response == "s");
+
+   return 0;
+}
+
+else if (stampBalance <= 10)
+      {
+         cout << "You have earned enough stamps for a free yogurt.\n"
+            << "Would you like to use your stamps?\n";
+      }
+   
+
+  if (stampBalance > 10, response == "Y" || response == "y")
+         {
+            cout << "You have earned enough stamps for a free yogurt.\n "
+               << "Would you like to you like yo use your stamps?\n"
+               << "Yes or No";
+            getline(cin, response);
+         }
+
+
+// Foothill Froyo Lab 4
+#include < iostream >
+#include < string >
+#include < sstream >
+using namespace std;
+
+int main()
+{
+   string response, numFroyo, usedStamps;
+   int purchases, stampBalance, stamps;
+
+   purchases = 0;
+   stampBalance = 0;
+   stamps = 10;
+
+   cout << "Welcome to Froyo Hill. Pleace choose from the following.\n\n";
+
+   for (;;)
+   {
+      cout << "----- Menu -----\n\n"
+         << "P (Process Purchase)\n"
+         << "S (Shut Down)\n";
+      getline(cin, response);
+
+      if (response == "P" || response == "p")
+      {
+         cout << "\nHow many yogurts would you like to buy?\n";
+         getline(cin, numFroyo);
+         istringstream(numFroyo) >> purchases;
+
+         stampBalance += purchases;
+         cout << "You have earned " << purchases << " stamps. \n"
+            << "You now have a stamp balanace of " << stampBalance << ".\n\n";
+
+      }
+      if (response == "S" || response == "s")
+      {
+         cout << "You have decided to not make a pruchase.\n"
+            << "Good-bye.\n";
+         break;
+      }
+
+      if (response != "P" || response != "p" || response != "S" || response != "s")
+      {
+         cout << "Error!!! Invalid Input!! \n\n";
+      }
+   }
+      
+
+   if ( stampBalance >= 10)
+   {
+      cout << "You have earned enough stamps for a free yogurt.\n"
+         << "Would you like to you like yo use your stamps?\n"
+         << "Yes or No\n";
+      getline(cin, usedStamps);
+
+      if (usedStamps == "y" || usedStamps == "Y")
+      {
+         stampBalance -= stamps;
+         cout << "You have used 10 stamps and have " << stampBalance << " left.\n"
+            << "Please enjoy.";
+      
+      }
+   }
+
+
+
+
+
+
+#include < iostream >
+#include < string >
+#include < sstream >
+using namespace std;
+
+int main()
+{
+   string response, numFroyo, usedStamps;
+   int purchases, stampBalance, stamps;
+
+   purchases = 0;
+   stampBalance = 0;
+   stamps = 10;
+
+   cout << "Welcome to Froyo Hill. Pleace choose from the following.\n\n";
+
+   while (true)
+   {
+      cout << "----- Menu -----\n\n"
+         << "P (Process Purchase)\n"
+         << "S (Shut Down)\n";
+      getline(cin, response);
+
+      if (response == "P" || response == "p")
+      {
+         cout << "\nHow many yogurts would you like to buy?\n";
+         getline(cin, numFroyo);
+         istringstream(numFroyo) >> purchases;
+
+         stampBalance += purchases;
+         cout << "You have earned " << purchases << " stamps. \n"
+            << "You now have a stamp balanace of " << stampBalance << ".\n\n";
+
+      }
+      if (response == "S" || response == "s")
+      {
+         cout << "You have decided to not make a pruchase.\n"
+            << "Good-bye.\n";
+         break;
+      }
+
+
+
+// Foothill  Assignment 4
+#include < iostream >
+#include < string >
+#include < sstream >
+using namespace std;
+
+int main()
+{
+   string response, numFroyo, stamps;
+   int purchases, stampBalance, stampsUsed;
+
+   purchases = 0;
+   stampBalance = 0;
+   stampsUsed = 10;
+
+   cout << "Welcome to Froyo Hill. Pleace choose from the following.\n\n";
+
+   for (;;)
+   {
+      cout << "----- Menu -----\n\n"
+         << "P (Process Purchase)\n"
+         << "S (Shut Down)\n";
+      getline(cin, response);
+
+      while (stampBalance >= 10)
+      {
+         cout << "You have earned enough stamps for a free yogurt.\n"
+            << "Would you like to you like yo use your stamps?\n"
+            << "Yes or No\n";
+         getline(cin, stamps);
+
+         if (stamps == "y" || stamps == "Y")
+         {
+            stampBalance -= stampsUsed;
+            cout << "You have used 10 stamps and have " << stampBalance << " left.\n"
+               << "Please enjoy.\n\n";
+         }
+      }
+
+      if (response == "P" || response == "p" || stamps == "n" || stamps =="N")
+      {
+         cout << "\nHow many yogurts would you like to buy?\n";
+         getline(cin, numFroyo);
+         istringstream(numFroyo) >> purchases;
+
+         stampBalance += purchases;
+         cout << "You have earned " << purchases << " stamps. \n"
+            << "You now have a stamp balanace of " << stampBalance << ".\n\n";
+      }
+
+      else if (response == "S" || response == "s")
+      {
+         cout << "You have decided to not make a pruchase.\n"
+            << "Good-bye.\n";
+         break;
+      }
+
+      else if (response != "P" || response != "p" || response != "S" || response != "s")
+      {
+         cout << "Error!!! Invalid Input!! \n\n";
+      }
+   }
+  
+}
+
+
+
+
+
+// Foothill Froyo Assignment 4
+#include < iostream >
+#include < string >
+#include < sstream >
+using namespace std;
+
+int main()
+{
+   string response, numFroyo, usedStamps;
+   int purchases, stampBalance, stamps;
+
+   purchases = 0;
+   stampBalance = 0;
+   stamps = 10;
+
+   cout << "Welcome to Froyo Hill. Pleace choose from the following.\n\n";
+
+   while (true)
+   {
+      cout << "----- Menu -----\n\n"
+         << "P (Process Purchase)\n"
+         << "S (Shut Down)\n";
+      getline(cin, response);
+
+      if (response != "P" || response != "p" || response != "S" || response != "s")
+      
+         cout << "Error!!! Invalid Input!! \n\n";
+      
+
+
+      if (response == "P" || response == "p")
+      {
+         cout << "\nHow many yogurts would you like to buy?\n";
+         getline(cin, numFroyo);
+         istringstream(numFroyo) >> purchases;
+
+         stampBalance += purchases;
+         cout << "You have earned " << purchases << " stamps. \n"
+            << "You now have a stamp balanace of " << stampBalance << ".\n\n";
+
+         if (stampBalance >= 10)
+         {
+            cout << "You have earned enough stamps for a free yogurt.\n"
+               << "Would you like to you like yo use your stamps?\n"
+               << "Yes or No\n";
+            getline(cin, usedStamps);
+
+            if (usedStamps == "y" || usedStamps == "Y")
+            {
+               stampBalance -= stamps;
+               cout << "You have used 10 stamps and have " << stampBalance << " left.\n"
+                  << "Please enjoy.";
+            }
+            if (response == "S" || response == "s")
+            {
+               cout << "You have decided to not make a pruchase.\n"
+                  << "Good-bye.\n";
+               break;
+            }
+         }
+      }
+
+   }
+   

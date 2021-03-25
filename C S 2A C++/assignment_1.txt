@@ -1,0 +1,31 @@
+//Hello World
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+   cout << "Hello World!\n";
+   cout << "My family's name is Sendejo.\n";
+   cout << "My student ID is 11204649.\n";
+   cout << "I learned from the syllabus that \n"
+      << "my professor can be contacted by either \n"
+      << "email, dropping by his office during office hours, \n"
+      << "and or private message through canvas.\n";
+     
+      return 0;
+}
+
+
+/*----------------------------- Posted Run --------------------------------------
+
+Hello World!
+My family's name is Sendejo.
+My student ID is 11204649.
+I learned from the syllabus that
+my professor can be contacted by either
+email, dropping by his office during office hours,
+and or private message through canvas.
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/

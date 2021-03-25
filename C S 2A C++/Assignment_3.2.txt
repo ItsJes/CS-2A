@@ -1,0 +1,347 @@
+// Lab 3 recipe for success
+
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+int main()
+{
+   // Food #1 facts
+   const string foodName_1 = "eggs";
+   const int foodName_1_calories_P100G = 48;
+   const double foodName_1_protein_P100G = 11;
+   const double foodName_1_sugar_P100G = 1;
+   const double foodName_1_totalFat_P100G = 0;
+
+   //Food #2 facts
+   const string foodName_2 = "cheddar cheese";
+   const int foodName_2_calories_P100G = 403;
+   const double foodName_2_protein_P100G = 25;
+   const double foodName_2_sugar_P100G = 1;
+   const double foodName_2_totalFat_P100G = 33;
+
+   // Food #3 facts
+   const string foodName_3 = "broccoli";
+   const int foodName_3_calories_P100G = 28;
+   const double foodName_3_protein_P100G = 3;
+   const double foodName_3_sugar_P100G = 0;
+   const double foodName_3_totalFat_P100G = 0;
+
+   // Food #4 facts
+   const string foodName_4 = "chicken breast";
+   const int foodName_4_calories_P100G = 110;
+   const double foodName_4_protein_P100G = 23;
+   const double foodName_4_sugar_P100G = 0;
+   const double foodName_4_totalFat_P100G = 1;
+
+   string recipeName, userInputStr, gramsOrCups, servingSize;
+   int userInputInt;
+   double totalCal, totalPro, totalSug, totalTolFat, oneServingSize;
+
+   totalCal = 0;
+   totalPro = 0;
+   totalSug = 0;
+   totalTolFat = 0;
+
+   // Ingredient Menu
+   cout << "----- Here is a list of ingredients ----- \n"
+      << "   Ingredient # 1: " << foodName_1 << "\n"
+      << "   Ingredient # 2: " << foodName_2 << "\n"
+      << "   Ingredient # 3: " << foodName_3 << "\n"
+      << "   Ingredient # 3: " << foodName_4 << "\n";
+
+   // Name of recipe
+   cout << "\nWhat are you calling this recipe? \n";
+   getline(cin, recipeName);
+
+   // Number of servings
+   cout << "\nWhat is the number of servings?\n ";
+   getline(cin, servingSize);
+   istringstream(servingSize) >> oneServingSize;
+
+   // Measurement of servings
+   if ((oneServingSize > 0) && (oneServingSize < 10))
+   {
+      cout << "\nWill you be measuring in grams or by ingredient amount ?\n";
+      getline(cin, gramsOrCups);
+   }
+
+   else
+   {
+      cout << "Error!!! Invalid input!\n";
+      return 1;
+   }
+
+   // Input for grams
+   if ((gramsOrCups == "grams") || (gramsOrCups == "Grams"))
+   {
+      cout << "\nHow many grams of " << foodName_1 << " ? \n";
+      getline(cin, userInputStr);
+      istringstream(userInputStr) >> userInputInt;
+
+      if ((userInputInt > 0) && (userInputInt < 1000))
+      {
+         totalCal += (userInputInt * foodName_1_calories_P100G / 100.) / oneServingSize;
+         totalPro += (userInputInt * foodName_1_protein_P100G / 100.) / oneServingSize;
+         totalSug += (userInputInt * foodName_1_sugar_P100G / 100.) / oneServingSize;
+         totalTolFat += (userInputInt * foodName_1_totalFat_P100G / 100.) / oneServingSize;
+
+         cout << "\nHow many grams of " << foodName_2 << " ? \n";
+         getline(cin, userInputStr);
+         istringstream(userInputStr) >> userInputInt;
+
+         totalCal += (userInputInt * foodName_2_calories_P100G / 100.) / oneServingSize;
+         totalPro += (userInputInt * foodName_2_protein_P100G / 100.) / oneServingSize;
+         totalSug += (userInputInt * foodName_2_sugar_P100G / 100.) / oneServingSize;
+         totalTolFat += (userInputInt * foodName_2_totalFat_P100G / 100.) / oneServingSize;
+
+         cout << "\nHow many grams of " << foodName_3 << " ? \n";
+         getline(cin, userInputStr);
+         istringstream(userInputStr) >> userInputInt;
+
+         totalCal += (userInputInt * foodName_3_calories_P100G / 100.) / oneServingSize;
+         totalPro += (userInputInt * foodName_3_protein_P100G / 100.) / oneServingSize;
+         totalSug += (userInputInt * foodName_3_sugar_P100G / 100.) / oneServingSize;
+         totalTolFat += (userInputInt * foodName_3_totalFat_P100G / 100.) / oneServingSize;
+
+         cout << "\nHow many grams of " << foodName_4 << " ? \n";
+         getline(cin, userInputStr);
+         istringstream(userInputStr) >> userInputInt;
+
+         totalCal += (userInputInt * foodName_4_calories_P100G / 100.) / oneServingSize;
+         totalPro += (userInputInt * foodName_4_protein_P100G / 100.) / oneServingSize;
+         totalSug += (userInputInt * foodName_4_sugar_P100G / 100.) / oneServingSize;
+         totalTolFat += (userInputInt * foodName_4_totalFat_P100G / 100.) / oneServingSize;
+      }
+
+      else
+      {
+         cout << "Error!!! Invalid input!\n";
+         return 1;
+      }
+
+   }
+
+   else
+   {
+      cout << "\nWhat amount of " << foodName_1 << " are you using? \n";
+      getline(cin, userInputStr);
+      istringstream(userInputStr) >> userInputInt;
+
+      totalCal += (userInputInt * foodName_1_calories_P100G) / oneServingSize;
+      totalPro += (userInputInt * foodName_1_protein_P100G) / oneServingSize;
+      totalSug += (userInputInt * foodName_1_sugar_P100G) / oneServingSize;
+      totalTolFat += (userInputInt * foodName_1_totalFat_P100G) / oneServingSize;
+
+      cout << "\nWhat amount of " << foodName_2 << " are you using? \n";
+      getline(cin, userInputStr);
+      istringstream(userInputStr) >> userInputInt;
+
+      totalCal += (userInputInt * foodName_2_calories_P100G) / oneServingSize;
+      totalPro += (userInputInt * foodName_2_protein_P100G) / oneServingSize;
+      totalSug += (userInputInt * foodName_2_sugar_P100G) / oneServingSize;
+      totalTolFat += (userInputInt * foodName_2_totalFat_P100G) / oneServingSize;
+
+      cout << "\nWhat amout of " << foodName_3 << " are you using? \n";
+      getline(cin, userInputStr);
+      istringstream(userInputStr) >> userInputInt;
+
+      totalCal += (userInputInt * foodName_3_calories_P100G) / oneServingSize;
+      totalPro += (userInputInt * foodName_3_protein_P100G) / oneServingSize;
+      totalSug += (userInputInt * foodName_3_sugar_P100G) / oneServingSize;
+      totalTolFat += (userInputInt * foodName_3_totalFat_P100G) / oneServingSize;
+
+      cout << "\nWhat amount of " << foodName_4 << " are you using? \n";
+      getline(cin, userInputStr);
+      istringstream(userInputStr) >> userInputInt;
+
+      totalCal += (userInputInt * foodName_4_calories_P100G) / oneServingSize;
+      totalPro += (userInputInt * foodName_4_protein_P100G) / oneServingSize;
+      totalSug += (userInputInt * foodName_4_sugar_P100G) / oneServingSize;
+      totalTolFat += (userInputInt * foodName_4_totalFat_P100G) / oneServingSize;
+
+   }
+
+   cout << "--------------Nutrition facts for 1 serving of " << recipeName << " in grams-------------- \n"
+      << "   Calories: " << totalCal << "\n"
+      << "   Protein: " << totalPro << "\n"
+      << "   Sugar: " << totalSug << "\n"
+      << "   Total Fat: " << totalTolFat << "\n";
+
+   return 1;
+}
+
+
+
+
+/*----------------------------- Posted Run # 1--------------------------------------
+
+----- Here is a list of ingredients -----
+Ingredient # 1: eggs
+Ingredient # 2: cheddar cheese
+Ingredient # 3: broccoli
+Ingredient # 3: chicken breast
+
+What are you calling this recipe?
+Broccoli Cheddar Soup
+
+What is the number of servings?
+4
+
+Will you be measuring in grams or by ingredient amount ?
+ingredients
+
+What amount of eggs are you using?
+0
+
+What amount of cheddar cheese are you using?
+4
+
+What amout of broccoli are you using?
+4
+
+What amount of chicken breast are you using?
+0
+--------------Nutrition facts for 1 serving of Broccoli Cheddar Soup in grams--------------
+Calories: 431
+Protein: 28
+Sugar: 1
+Total Fat: 33
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+
+/*----------------------------- Posted Run # 2 --------------------------------------
+
+----- Here is a list of ingredients -----
+Ingredient # 1: eggs
+Ingredient # 2: cheddar cheese
+Ingredient # 3: broccoli
+Ingredient # 3: chicken breast
+
+What are you calling this recipe?
+Cheese Stuffed Chicken
+
+What is the number of servings?
+5
+
+Will you be measuring in grams or by ingredient amount ?
+grams
+
+How many grams of eggs ?
+0
+
+How many grams of cheddar cheese ?
+500
+
+How many grams of broccoli ?
+0
+
+How many grams of chicken breast ?
+500
+--------------Nutrition facts for 1 serving of Cheese Stuffed Chicken in grams--------------
+Calories: 513
+Protein: 48
+Sugar: 1
+Total Fat: 34
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+
+/*----------------------------- Posted Run # 3--------------------------------------
+
+----- Here is a list of ingredients -----
+Ingredient # 1: eggs
+Ingredient # 2: cheddar cheese
+Ingredient # 3: broccoli
+Ingredient # 3: chicken breast
+
+What are you calling this recipe?
+Cheese Omelette
+
+What is the number of servings?
+8
+
+Will you be measuring in grams or by ingredient amount ?
+ingredients
+
+What amount of eggs are you using?
+8
+
+What amount of cheddar cheese are you using?
+8
+
+What amout of broccoli are you using?
+0
+
+What amount of chicken breast are you using?
+0
+--------------Nutrition facts for 1 serving of Cheese Omelette in grams--------------
+Calories: 451
+Protein: 36
+Sugar: 2
+Total Fat: 33
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+/*----------------------------- Posted Run # 3--------------------------------------
+
+----- Here is a list of ingredients -----
+Ingredient # 1: eggs
+Ingredient # 2: cheddar cheese
+Ingredient # 3: broccoli
+Ingredient # 3: chicken breast
+
+What are you calling this recipe?
+Chicken with Broccoli
+
+What is the number of servings?
+2
+
+Will you be measuring in grams or by ingredient amount ?
+Grams
+
+How many grams of eggs ?
+0
+
+How many grams of cheddar cheese ?
+0
+
+How many grams of broccoli ?
+200
+
+How many grams of chicken breast ?
+200
+--------------Nutrition facts for 1 serving of Chicken with Broccoli in grams--------------
+Calories: 138
+Protein: 26
+Sugar: 0
+Total Fat: 1
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+
+
+/*----------------------------- Posted Run Error Test--------------------------------------
+
+----- Here is a list of ingredients -----
+Ingredient # 1: eggs
+Ingredient # 2: cheddar cheese
+Ingredient # 3: broccoli
+Ingredient # 3: chicken breast
+
+What are you calling this recipe?
+Cheese Covered Chicked
+
+What is the number of servings?
+-1
+Error!!! Invalid input!
+Press any key to continue . . .
+
+
+---------------------------------------------------------------------------------*/

@@ -1,0 +1,216 @@
+//iTunes Music Library
+#include <iostream>
+#include <string>
+#include <sstream>
+#include<algorithm>
+
+using namespace std;
+
+class iTunes
+{
+private:
+   string name;
+   string artist;
+   int bitRate;
+   int totalTime;
+
+   static bool validRate(int bitRate);
+   static bool validArtist(string artist);
+   static bool validTime(int totalTime);
+   static bool validSong(string name);
+   static bool top(iTunes list[], int top);
+   static void change(iTunes &first, iTunes &next);
+
+public:
+   string toString();
+
+   iTunes();
+   iTunes(string artist, string name, int totalTime, int bitRate);
+
+   static const int MIN_BITRATE = 64;
+   static const int MAX_BITRATE = 705;
+   static const int MIN_STR_LENGTH = 1;
+   static const int MAX_STR_LENGTH = 80;
+   static const int MIN_TIME_PLAY = 5000;
+   static const long MAX_TIME_PLAY = 1000 * 60 * 60;
+   static const int DEFAULT_BITRATE = 64;
+   static const int DEFAULT_PLAYTIME = 1000;
+   static const string DEFAULT_STRING;
+
+   static void printArray(string data, iTunes list[], int arraySize);
+   static void sortArray(iTunes[], int arraySize);
+   static int compare(iTunes first, iTunes second);
+
+   string getArtist() { return artist; }
+   string getName() { return name; }
+   int getTime() { return totalTime; }
+   int getRate() { return bitRate; }
+
+   bool setName(string song);
+   bool setTime(int time);
+   bool setRate(int rate);
+   bool setArtist(string artName);
+
+};
+const string iTunes::DEFAULT_STRING = "undefined";
+int main()
+{
+   iTunes library[] =
+   {
+      iTunes("Starboys", "The Weekend", 210000, 120),
+      iTunes("Main Chick", "Kid Ink", 270000, 150),
+      iTunes("So Sick", "Ne-Yo", 195000, 90),
+      iTunes("Waiting on the Rain", "JBoog", 196800, 100)
+   };
+   int arraySize = sizeof(library) / sizeof(library[0]);
+
+   iTunes::printArray("Original: ", library, arraySize);
+   iTunes::sortArray(library, arraySize);
+   iTunes::printArray("Modified: ", library, arraySize);
+   iTunes::printArray("Reset: ", library, arraySize);
+}
+iTunes::iTunes(string artist, string name, int totalTime, int bitRate)
+{
+   if (!setTime(totalTime))
+      totalTime = DEFAULT_PLAYTIME;
+   if (!setRate(bitRate))
+      bitRate = DEFAULT_BITRATE;
+   if (!setArtist(artist))
+      artist = DEFAULT_STRING;
+   if (!setName(name))
+      name = DEFAULT_STRING;
+}
+bool iTunes::setTime(int time)
+{
+   if (!validTime(time))
+      return false;
+   totalTime = time;
+   return true;
+}
+bool iTunes::setRate(int rate)
+{
+   if (!validRate(rate))
+      return false;
+   bitRate = rate;
+   return true;
+}
+bool iTunes::setName(string songs)
+{
+   if (!validSong(songs))
+      return false;
+   name = songs;
+   return true;
+}
+bool iTunes::setArtist(string artName)
+{
+   if (!validArtist(artName))
+      return false;
+   artist = artName;
+   return true;
+}
+bool iTunes::validRate(int rate)
+{
+   if (rate >= MIN_BITRATE && rate <= MAX_BITRATE)
+      return true;
+   return false;
+}
+bool iTunes::validTime(int time)
+{
+   if (time >= MIN_TIME_PLAY && time <= MAX_TIME_PLAY)
+      return true;
+   return false;
+}
+bool iTunes::validArtist(string length)
+{
+   if (length.length() >= MIN_STR_LENGTH && length.length() <= MAX_STR_LENGTH)
+      return true;
+   return false;
+}
+bool iTunes::validSong(string length)
+{
+   if (length.length() >= MIN_STR_LENGTH && length.length() <= MAX_STR_LENGTH)
+      return true;
+   return false;
+}
+int iTunes::compare(iTunes first, iTunes second)
+{
+   int different;
+
+   different = first.name.compare(second.name);
+
+   return different;
+}
+string iTunes::toString()
+{
+   string results;
+   ostringstream convrtName, convrtArtist, convrtTotalTime, convrtBit;
+
+   convrtName << name;
+   convrtArtist << artist;
+   convrtTotalTime << totalTime;
+   convrtBit << bitRate;
+
+   results =
+      "Artist: " + convrtName.str() + " / Title: "
+      + convrtArtist.str() + " / Play Time: " + convrtTotalTime.str()
+      + " Milliseconds / Bit Rate: " + convrtBit.str() + "k\n";
+
+   return results;
+}
+void iTunes::printArray(string data, iTunes list[], int arraySize)
+{
+   string output = "";
+
+   cout << data << "\n";
+   for (int i = 0; i < arraySize; i++)
+      output += " " + list[i].toString();
+
+   cout << output << "\n";
+}
+void iTunes::sortArray(iTunes array[], int arraySize)
+{
+   for (int k = 0; k < arraySize; k++)
+      if (!top(array, arraySize - 1 - k))
+         return;
+}
+
+bool iTunes::top(iTunes list[], int top)
+{
+   bool changed = false;
+
+   for (int i = 0; i < top; i++)
+      if (iTunes::compare(list[i], list[i + 1]) > 0)
+      {
+         swap(list[i], list[i + 1]);
+         changed = true;
+      }
+   return changed;
+}
+
+// I couldn't figure out how to reset it. Sorry it's not complete
+
+/*----------------------------- Posted Run # 1 --------------------------------------
+
+Original:
+Artist: The Weekend / Title: Starboys / Play Time: 210000 Milliseconds / Bit Rate: 120k
+Artist: Kid Ink / Title: Main Chick / Play Time: 270000 Milliseconds / Bit Rate: 150k
+Artist: Ne-Yo / Title: So Sick / Play Time: 195000 Milliseconds / Bit Rate: 90k
+Artist: JBoog / Title: Waiting on the Rain / Play Time: 196800 Milliseconds / Bit Rate: 100k
+
+Modified:
+Artist: JBoog / Title: Waiting on the Rain / Play Time: 196800 Milliseconds / Bit Rate: 100k
+Artist: Kid Ink / Title: Main Chick / Play Time: 270000 Milliseconds / Bit Rate: 150k
+Artist: Ne-Yo / Title: So Sick / Play Time: 195000 Milliseconds / Bit Rate: 90k
+Artist: The Weekend / Title: Starboys / Play Time: 210000 Milliseconds / Bit Rate: 120k
+
+Reset:
+Artist: JBoog / Title: Waiting on the Rain / Play Time: 196800 Milliseconds / Bit Rate: 100k
+Artist: Kid Ink / Title: Main Chick / Play Time: 270000 Milliseconds / Bit Rate: 150k
+Artist: Ne-Yo / Title: So Sick / Play Time: 195000 Milliseconds / Bit Rate: 90k
+Artist: The Weekend / Title: Starboys / Play Time: 210000 Milliseconds / Bit Rate: 120k
+
+Press any key to continue . . .
+
+
+---------------------------------------------------------------------------------*/
+

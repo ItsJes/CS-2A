@@ -1,0 +1,253 @@
+// Froyo Assignment
+#include < iostream >
+#include < string >
+#include < sstream >
+using namespace std;
+
+int main()
+{
+   string response, numFroyo, usedStamps;
+   int purchase, stampBalance;
+
+   purchase = 0;
+   stampBalance = 0;
+
+   cout << "Welcome to Froyo Hill. Pleace choose from the following.\n\n";
+
+   do
+   {
+      cout << "----- Menu -----\n\n"
+         << "P (Process Purchase)\n"
+         << "S (Shut Down)\n";
+      getline(cin, response);
+
+      if (response == "p" || response == "P")
+      {
+
+         if (stampBalance >= 10)
+         {
+            cout << "You have earned enough stamps for a free yogurt.\n"
+               << "Would you like to you like yo use your stamps?\n"
+               << "Yes or No\n";
+            getline(cin, usedStamps);
+
+            if (usedStamps == "y" || usedStamps == "Y")
+            {
+               stampBalance -= 10;
+               cout << "You have used 10 stamps and have " << stampBalance << " left.\n"
+                  << "Please enjoy.\n\n";
+               continue;
+            }
+         }
+         if (response == "p" || response == "P" || stampBalance > 10 || usedStamps == "N" || usedStamps == "n")
+         {
+            cout << "\nHow many yogurts would you like to buy?\n";
+            getline(cin, numFroyo);
+            istringstream(numFroyo) >> purchase;
+
+            if (purchase > 0)
+            {
+               stampBalance += purchase;
+               cout << "You have earned " << purchase << " stamps. \n"
+                  << "You now have a stamp balanace of " << stampBalance << ".\n\n";
+            }
+            else  if (purchase < 0)
+            {
+               cout << "ERROR!! Invalid Input!\n\n";
+            }
+         }
+      }
+         else if (response == "s" || response == "S")
+         {
+            cout << "You have decided to not make a pruchase.\n"
+               << "Good-bye.\n";
+            break;
+         }
+
+         else if (response != "s" && response != "S")
+         {
+            cout << "ERROR!! Invalid Input!\n"
+               << "Please enter P or S.\n\n";
+         }
+
+      } while (response != "S" && response != "s");
+
+   }
+
+
+/*----------------------------- Posted Run #1 --------------------------------------
+
+Welcome to Froyo Hill. Pleace choose from the following.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+
+How many yogurts would you like to buy?
+2
+You have earned 2 stamps.
+You now have a stamp balanace of 2.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+
+How many yogurts would you like to buy?
+4
+You have earned 4 stamps.
+You now have a stamp balanace of 6.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+
+How many yogurts would you like to buy?
+10
+You have earned 10 stamps.
+You now have a stamp balanace of 16.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+You have earned enough stamps for a free yogurt.
+Would you like to you like yo use your stamps?
+Yes or No
+n
+How many yogurts would you like to buy?
+2
+You have earned 2 stamps.
+You now have a stamp balanace of 18.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+You have earned enough stamps for a free yogurt.
+Would you like to you like yo use your stamps?
+Yes or No
+y
+You have used 10 stamps and have 8 left.
+Please enjoy.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+
+How many yogurts would you like to buy?
+-4
+ERROR!! Invalid Input!
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+r
+ERROR!! Invalid Input!
+Please enter P or S.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+s
+You have decided to not make a pruchase.
+Good-bye.
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/
+/*----------------------------- Posted Run # 2--------------------------------------
+
+  Welcome to Froyo Hill. Pleace choose from the following.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+
+How many yogurts would you like to buy?
+10
+You have earned 10 stamps.
+You now have a stamp balanace of 10.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+You have earned enough stamps for a free yogurt.
+Would you like to you like yo use your stamps?
+Yes or No
+n
+
+How many yogurts would you like to buy?
+-1
+ERROR!! Invalid Input!
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+You have earned enough stamps for a free yogurt.
+Would you like to you like yo use your stamps?
+Yes or No
+n
+
+How many yogurts would you like to buy?
+2
+You have earned 2 stamps.
+You now have a stamp balanace of 12.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+You have earned enough stamps for a free yogurt.
+Would you like to you like yo use your stamps?
+Yes or No
+y
+You have used 10 stamps and have 2 left.
+Please enjoy.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+p
+
+How many yogurts would you like to buy?
+2
+You have earned 2 stamps.
+You now have a stamp balanace of 4.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+t
+ERROR!! Invalid Input!
+Please enter P or S.
+
+----- Menu -----
+
+P (Process Purchase)
+S (Shut Down)
+s
+You have decided to not make a pruchase.
+Good-bye.
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/

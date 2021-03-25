@@ -1,0 +1,113 @@
+// Card Game Lab
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <sstream>
+#include <cctype>
+#include <algorithm>
+
+using namespace std;
+
+enum Suit { clubs, diamonds, hearts, spades };
+
+class Card
+{
+public:
+   string display();
+   Card() {}
+   Card(int r, int s) { rank = r; suit = s; }
+   int rank;
+   int suit;
+};
+class Hand
+{
+public:
+   Hand();
+   Card deal_a_card();
+
+private:
+   int cards[52];
+   int theCard;
+   void shuffle();
+   bool getVal();
+};
+Hand my_hand;
+void game_play();
+Card handSize[5];
+
+int main()
+{
+   string keepPlaying;
+ 
+   while (true)
+   {
+      game_play();
+      cout << "Would you like to play again? \n";
+      getline(cin, keepPlaying);
+
+        if (keepPlaying[0] == 'N' || keepPlaying[0] == 'n')
+      {
+         break;
+      }
+   }
+   return 0;
+}
+string Card::display()
+{
+   static const string Ranks[] = { " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", " T", " J", " Q", " K" };
+   static const string Suit[] = { "Hearts", "Diamond", "Spades", "Clubs" };
+
+   return Ranks[rank] + " of " + Suit[suit] + " .";
+}
+Hand::Hand()
+{
+   srand(time(NULL));
+   for (int i = 0; i < 52; ++i)
+   {
+      cards[i] = i;
+   }
+   shuffle();
+}
+void Hand::shuffle()
+{
+   theCard = 0;
+   random_shuffle(cards, cards + 52);
+}
+Card Hand::deal_a_card()
+{
+   if (theCard < 51)
+   {
+      shuffle();
+   }
+   int r = cards[theCard] % 13;
+   int s = cards[theCard] / 13;
+   return Card(r, s);
+}
+void game_play()
+{
+   for (int i = 0; i < 5; ++i)
+   {
+      Card crd = my_hand.deal_a_card();
+      cout << i + 1 << ".";
+      cout << crd.display() << "\n";
+   }
+}
+
+/*
+1. T of Spades .
+2. 4 of Diamond .
+3. J of Spades .
+4. K of Clubs .
+5. T of Diamond .
+Would you like to play again ?
+y
+1. 3 of Clubs .
+2. T of Clubs .
+3. K of Diamond .
+4. 3 of Spades .
+5. 7 of Hearts .
+Would you like to play again ?
+n
+Press any key to continue . . .
+*/

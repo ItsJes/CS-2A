@@ -1,0 +1,298 @@
+// Dating for Us Geeks
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <cmath>
+
+using namespace std;
+
+class DatingProfile
+{
+private:
+   string name;
+   char gender;
+   char searchGender;
+   int romance;
+   int finance;
+
+   static bool validRomance(int romance);
+   static bool validFinance(int finance);
+   static bool validName(string name);
+
+   double determinGenderFit(DatingProfile partner);
+   double determineRomanceFit(DatingProfile partner);
+   double determineFinanceFit(DatingProfile partner);
+
+public:
+   static const int MIN_ROMANCE = 1;
+   static const int MAX_ROMANCE = 10;
+   static const int MIN_FINANCE = 1;
+   static const int MAX_FINANCE = 10;
+   static const int MIN_NAME_LEN = 1;
+   static const int MAX_NAME_LEN = 20;
+   static const char DEFAULT_GENDER = 'F';
+   static const char DEFAULT_SEARCHGENDER = 'M';
+   static const int DEFAULT_ROMANCE = 5;
+   static const int DEFAULT_FINANCE = 5;
+   static const string DEFAULT_NAME;
+   double fitValue(DatingProfile partner);
+
+   DatingProfile();
+   DatingProfile(string theName, char gend, char searchGend, int rom, int fin);
+
+   void setDefaults();
+   void setAll(string theName, char gend, char searchGend, int rom, int fin);
+
+   char getGender() { return gender; }
+   bool setGender(char gend);
+   char getSearchGender() { return searchGender; }
+   bool setSearchGender(char searchGend);
+   int getRomance() { return romance; }
+   bool setRomance(int rom);
+   int getFinance() { return finance; }
+   bool setFinance(int fin);
+   string getName() { return name; }
+   bool setName(string theName);
+};
+DatingProfile::DatingProfile()
+{
+   setDefaults();
+}
+void displayTwoProfiles(DatingProfile profile1, DatingProfile profile2)
+{
+   cout << "Fit between " << profile1.getName() << " and " << profile2.getName() << " \n" << profile1.fitValue(profile2) << "\n";
+}
+const string DatingProfile::DEFAULT_NAME = " Unknown ";
+int main()
+{
+   DatingProfile
+      applicate1("Damia Rose", 'F', 'M', 9, 8),
+      applicate2("Kai Ocean", 'M', 'F', 7, 5),
+      applicate3("Yuki Snow", 'F', 'M', 4, 9),
+      applicate4("Auron Fantasy", 'M', 'F', 3, 4);
+
+   displayTwoProfiles(applicate1, applicate1); 
+   displayTwoProfiles(applicate1, applicate2);
+   displayTwoProfiles(applicate1, applicate3);
+   displayTwoProfiles(applicate1, applicate4);
+   displayTwoProfiles(applicate2, applicate1);
+   displayTwoProfiles(applicate2, applicate2);
+   displayTwoProfiles(applicate2, applicate3);
+   displayTwoProfiles(applicate2, applicate4);
+   displayTwoProfiles(applicate3, applicate1);
+   displayTwoProfiles(applicate3, applicate2);
+   displayTwoProfiles(applicate3, applicate3);
+   displayTwoProfiles(applicate3, applicate4);
+   displayTwoProfiles(applicate4, applicate1);
+   displayTwoProfiles(applicate4, applicate2);
+   displayTwoProfiles(applicate4, applicate3);
+   displayTwoProfiles(applicate4, applicate4);
+
+   applicate1.setDefaults();
+   applicate2.setDefaults();
+   applicate3.setDefaults();
+   applicate4.setDefaults();
+
+   displayTwoProfiles(applicate1, applicate1);
+   displayTwoProfiles(applicate1, applicate2);
+   displayTwoProfiles(applicate1, applicate3);
+   displayTwoProfiles(applicate1, applicate4);
+   displayTwoProfiles(applicate2, applicate1);
+   displayTwoProfiles(applicate2, applicate2);
+   displayTwoProfiles(applicate2, applicate3);
+   displayTwoProfiles(applicate2, applicate4);
+   displayTwoProfiles(applicate3, applicate1);
+   displayTwoProfiles(applicate3, applicate2);
+   displayTwoProfiles(applicate3, applicate3);
+   displayTwoProfiles(applicate3, applicate4);
+   displayTwoProfiles(applicate4, applicate1);
+   displayTwoProfiles(applicate4, applicate2);
+   displayTwoProfiles(applicate4, applicate3);
+   displayTwoProfiles(applicate4, applicate4);
+}
+DatingProfile::DatingProfile(string theName, char gend, char searchGend, int rom, int fin)
+{
+   if (!setGender(gend))
+      setGender('M');
+   else
+      gend = DEFAULT_GENDER;
+   if (!setSearchGender(searchGend))
+      setSearchGender('F');
+   else
+      searchGend = DEFAULT_SEARCHGENDER;
+   if (!setRomance(rom))
+      rom = DEFAULT_ROMANCE;
+   if (!setFinance(fin))
+      fin = DEFAULT_FINANCE;
+   if (!setName(theName))
+      theName = DEFAULT_NAME;
+}
+bool DatingProfile::setGender(char gend)
+{
+   if (gend != 'F' && gend != 'M')
+      return false;
+   gender = gend;
+   return true;
+}
+bool DatingProfile::setSearchGender(char searchGend)
+{
+   if (searchGend != 'M' && searchGend != 'F')
+      return false;
+   searchGender = searchGend;
+   return true;
+}
+bool DatingProfile::setRomance(int rom)
+{
+   if (!validRomance(rom))
+      return false;
+   romance = rom;
+   return true;
+}
+bool DatingProfile::setFinance(int fin)
+{
+   if (!validFinance(fin))
+      return false;
+   finance = fin;
+   return true;
+}
+bool DatingProfile::setName(string theName)
+{
+   if (!validName(theName))
+      return false;
+   name = theName;
+   return true;
+}
+bool DatingProfile::validRomance(int rom)
+{
+   if (rom >= MIN_ROMANCE && rom <= MAX_ROMANCE)
+      return true;
+   return false;
+}
+bool DatingProfile::validFinance(int fin)
+{
+   if (fin >= MIN_FINANCE && fin <= MAX_FINANCE)
+      return true;
+   return false;
+}
+bool DatingProfile::validName(string theName)
+{
+   if (theName.length() >= MIN_NAME_LEN && theName.length() <= MAX_NAME_LEN)
+      return true;
+   return false;
+}
+void DatingProfile::setDefaults()
+{
+   gender = DEFAULT_GENDER;
+   searchGender = DEFAULT_SEARCHGENDER;
+   romance = DEFAULT_ROMANCE;
+   finance = DEFAULT_FINANCE;
+   name = DEFAULT_NAME;
+}
+double DatingProfile::determinGenderFit(DatingProfile partner)
+{
+   if (getGender() != partner.getGender())
+      return 1.0;
+   else
+      return 0.0;
+}
+double DatingProfile::determineRomanceFit(DatingProfile partner)
+{
+   double results;
+   if (getRomance() == partner.getRomance())
+      results = 1.0;
+   else
+   {
+      double difference;
+      difference = abs(partner.getRomance() - getRomance());
+      results = (10 - difference) / 10.0;
+   }
+   return results;
+}
+double DatingProfile::determineFinanceFit(DatingProfile partner)
+{
+   double results;
+   if (getFinance() == partner.getFinance())
+      results = 1.0;
+   else
+   {
+      double difference;
+      difference = abs(partner.getFinance() - getFinance());
+      results = (10 - difference) / 10.0;
+   }
+   return results;
+}
+double DatingProfile::fitValue(DatingProfile partner)
+{
+   double fitVal = determinGenderFit(partner)*
+      determineRomanceFit(partner)* determineFinanceFit(partner);
+   return fitVal;
+}
+
+/*----------------------------- Posted Run --------------------------------------
+
+Fit between Damia Rose and Damia Rose
+0
+Fit between Damia Rose and Kai Ocean
+0.56
+Fit between Damia Rose and Yuki Snow
+0
+Fit between Damia Rose and Auron Fantasy
+0.24
+Fit between Kai Ocean and Damia Rose
+0.56
+Fit between Kai Ocean and Kai Ocean
+0
+Fit between Kai Ocean and Yuki Snow
+0.42
+Fit between Kai Ocean and Auron Fantasy
+0
+Fit between Yuki Snow and Damia Rose
+0
+Fit between Yuki Snow and Kai Ocean
+0.42
+Fit between Yuki Snow and Yuki Snow
+0
+Fit between Yuki Snow and Auron Fantasy
+0.45
+Fit between Auron Fantasy and Damia Rose
+0.24
+Fit between Auron Fantasy and Kai Ocean
+0
+Fit between Auron Fantasy and Yuki Snow
+0.45
+Fit between Auron Fantasy and Auron Fantasy
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Fit between  Unknown  and  Unknown
+0
+Press any key to continue . . .
+---------------------------------------------------------------------------------*/

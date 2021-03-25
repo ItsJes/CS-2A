@@ -1,0 +1,61 @@
+/*uses my student id number and number of 
+letters in my last name to comput 5 values */
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+   int studID, answer, numLet;
+
+   studID = 11204649;
+   numLet = 7;
+
+   cout << "My last name is Sendejo.\n"
+      << "The number of characters is my last name is 7.\n";
+   cout << "My Student ID is 11204649.\n\n";
+
+   // first expression
+   answer = studID % 2;
+   cout << "Expression # 1: " << studID << " % 2 is " << answer << "\n\n";
+
+   // second expression
+   answer = studID % numLet;
+   cout << "Expression # 2: " << studID << " % " << numLet << " is " << answer << "\n\n";
+
+   // third expression
+   answer = studID / numLet;
+   cout << "Expression # 3: " << studID << " / " << numLet << " is " << (double) answer << "\n\n";
+
+   //fourth expression
+   answer = 1 + 2 + 3 + 4 + 5 + 6 + numLet;
+   cout << "Expression # 4: 1 + 2 + 3 + 4 + 5 + 6 + " << numLet << " is " << answer << "\n\n";
+
+   //fifth expression
+   answer = 100000 / 99 + (studID - 54321 / ((numLet + 30) * (numLet + 30)));
+   cout << "Expression # 5: 100000 / 99 + (" << studID << " - 54321 / ( "
+      << numLet << " + 30)^2) is " << (double) answer << "\n";
+
+   return 0;
+}
+
+
+
+/*----------------------------- Posted Run --------------------------------------
+
+My last name is Sendejo.
+The number of characters is my last name is 7.
+My Student ID is 11204649.
+
+Expression # 1: 11204649 % 2 is 1
+
+Expression # 2: 11204649 % 7 is 1
+
+Expression # 3: 11204649 / 7 is 1.60066e+006
+
+Expression # 4: 1 + 2 + 3 + 4 + 5 + 6 + 7 is 28
+
+Expression # 5: 100000 / 99 + (11204649 - 54321 / ( 7 + 30)^2) is 1.12056e+007
+Press any key to continue . . .
+
+---------------------------------------------------------------------------------*/

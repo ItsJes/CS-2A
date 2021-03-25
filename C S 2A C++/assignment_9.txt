@@ -1,0 +1,309 @@
+// Assignment 9
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+class Student
+{
+private:
+   string lastName;
+   string firstName;
+   int totalPoints;
+   static int sortKey;
+
+public:
+   static const string DEFAULT_NAME;
+   static const int DEFAULT_POINTS = 0;
+   static const int MAX_POINTS = 1000;
+   static const int SORT_BY_FIRST = 88;
+   static const int SORT_BY_LAST = 98;
+   static const int SORT_BY_POINTS = 108;
+
+public:
+   Student(string last, string first, long points);
+
+   string getLastName() { return lastName; }
+   string getFirstName() { return firstName; }
+   int getTotalPoints() { return totalPoints; }
+   static int getSortKey() { return sortKey; }
+
+   bool setLastName(string last);
+   bool setFirstName(string first);
+   bool setPoints(int pts);
+   static bool setSortKey(int key);
+
+   static int compareTwoStudents(Student firstStud, Student secondStud);
+   string toString();
+
+private:
+   static bool validString(string testStr);
+   static bool validPoints(int testPoints);
+};
+class StudentArrayUtilities
+{
+public:
+   static string toString(string title, Student data[], int arraySize);
+   static void arraySort(Student array[], int arraySize);
+   static double getMedianDestructive(Student array[], int arraySize);
+   static void printArray(string title, Student data[], int arraySize);
+
+private:
+   static bool floatLargestToTop(Student data[], int top);
+   static void mySwap(Student &a, Student &b);
+};
+const string Student::DEFAULT_NAME = "Unknown";
+int Student::sortKey = SORT_BY_LAST;
+
+int main()
+{
+   Student evenStudents[] =
+   {
+      Student("Loq", "Yuna", 150), Student("Delta", "Lance", 98),
+      Student("Simpson", "Homer", 5), Student("Mate", "Coffee", 198),
+      Student("Lee", "Tiff", 200), Student("Pickles", "Dill", 120),
+      Student("Shortman", "Arnold", 160), Student("High", "Hau", 180),
+      Student("Chilipeppa", "Lorena", 190), Student("Sky", "Sora", 165),
+      Student("Ryder", "Flint", 155), Student("Charming", "Prince", 175),
+      Student("Gieser", "Kai", 184), Student("Dixon", "Amanda", 168),
+      Student("Moore", "Randi", 188), Student("Dalin", "Jenn", 192)
+   };
+   Student oddStudents[] =
+   {
+      Student("Loq", "Yuna", 150), Student("Delta", "Lance", 98),
+      Student("Mate", "Coffee", 198), Student("Lee", "Tiff", 200), 
+      Student("Pickles", "Dill", 120), Student("Shortman", "Arnold", 160), 
+      Student("High", "Hau", 180), Student("Chilipeppa", "Lorena", 190), 
+      Student("Sky", "Sora", 165), Student("Ryder", "Flint", 155), 
+      Student("Charming", "Prince", 175), Student("Gieser", "Kai", 184), 
+      Student("Dixon", "Amanda", 168), Student("Moore", "Randi", 188), 
+      Student("Dalin", "Jenn", 192)
+   };
+
+   Student singleStudents[] =
+   {
+      Student("Loq", "Yuna", 150)
+   };
+
+   short evenArraySize = sizeof(evenStudents) / sizeof(evenStudents[0]);
+   short oddArraySize = sizeof(oddStudents) / sizeof(oddStudents[0]);
+   short singleArraySize = sizeof(singleStudents) / sizeof(singleStudents[0]);
+
+   // Kept in to test if everything was working
+   StudentArrayUtilities::printArray("Before: ", evenStudents, evenArraySize);
+   StudentArrayUtilities::arraySort(evenStudents, evenArraySize);
+   StudentArrayUtilities::printArray("After: ", evenStudents, evenArraySize);
+   
+   // Was trying to figure out how to call toString method. Not Successful. Tried to get help at STEM Center.
+   /*
+   Student s = evenStudents[];
+   string resultString;
+   resultString = s.toString();
+   cout << resultString;
+   */
+
+
+}
+Student::Student(string last, string first, long points)
+{
+   if (!setLastName(last))
+      lastName = DEFAULT_NAME;
+   if (!setFirstName(first))
+      firstName = DEFAULT_NAME;
+   if (!setPoints(points))
+      totalPoints = DEFAULT_POINTS;
+}
+
+bool Student::setLastName(string last)
+{
+   if (!validString(last))
+      return false;
+   lastName = last;
+   return true;
+}
+
+bool Student::setFirstName(string first)
+{
+   if (!validString(first))
+      return false;
+   firstName = first;
+   return true;
+}
+
+bool Student::setPoints(int pts)
+{
+   if (!validPoints(pts))
+      return false;
+   totalPoints = pts;
+   return true;
+}
+
+bool Student::setSortKey(int key)
+{
+   if (key != SORT_BY_LAST && key !=  SORT_BY_FIRST && key != SORT_BY_POINTS)
+      return false;
+   sortKey = key;
+      return true;
+}
+
+bool Student::validString(string testStr)
+{
+   if (testStr.length() > 0 && isalpha(testStr[0]))
+      return true;
+   return false;
+}
+
+bool Student::validPoints(int testPoints)
+{
+   if (testPoints >= 0 && testPoints <= MAX_POINTS)
+      return true;
+   return false;
+}
+string Student::toString()
+{
+   string resultString;
+   ostringstream cnvrtFirst, cnvrtLast, cnvrtPoints;
+
+   cnvrtFirst << firstName;
+   cnvrtLast << lastName;
+   cnvrtPoints << totalPoints;
+
+   resultString = " " + cnvrtLast.str()
+      + ", " + cnvrtFirst.str()
+      + " points: " + cnvrtPoints.str()
+      + "\n";
+   return resultString;
+}
+int Student::compareTwoStudents(Student firstStud, Student secondStud)
+{
+   int sortKey = getSortKey();
+   switch (getSortKey())
+   {
+   case SORT_BY_FIRST:
+      return firstStud.firstName.compare(secondStud.firstName);
+      break;
+   case SORT_BY_LAST:
+      return firstStud.lastName.compare(secondStud.lastName);
+      break;
+   case SORT_BY_POINTS:
+      return firstStud.getTotalPoints() - secondStud.getTotalPoints();
+      break;
+   }
+   return 0;
+}
+// Method that was Suppose to replace printArray.
+/*
+string StudentArrayUtilities::toString(string title, Student data[], int arraySize)
+{
+   string output = "";
+
+   cout << title << endl;
+
+   for (int k = 0; k < arraySize; k++)
+      output += " " + data[k].toString();
+
+   return output;
+}
+*/
+void StudentArrayUtilities::printArray(string title, Student data[], int arraySize)
+{
+   string output = "";
+
+   cout << title << endl;
+
+   // build the output string from the individual Students:
+   for (int k = 0; k < arraySize; k++)
+      output += " " + data[k].toString();
+
+   cout << output << endl;
+}
+void StudentArrayUtilities::arraySort(Student array[], int arraySize)
+{
+   for (int k = 0; k < arraySize; k++)
+      if (!floatLargestToTop(array, arraySize - 1 - k))
+         return;
+}
+
+bool StudentArrayUtilities::floatLargestToTop(Student data[], int top)
+{
+   bool changed = false;
+
+   for (int k = 0; k < top; k++)
+      if (Student::compareTwoStudents(data[k], data[k + 1]) > 0)
+      {
+         mySwap(data[k], data[k + 1]);
+         changed = true;
+      }
+   return changed;
+}
+
+void StudentArrayUtilities::mySwap(Student &a, Student &b)
+{
+   Student temp("", "", 0);
+
+   temp = a;
+   a = b;
+   b = temp;
+}
+
+// Used to calculate Median.
+double StudentArrayUtilities::getMedianDestructive(Student array[], int arraySize)
+{
+   int srtKey = Student::getSortKey();
+   Student::setSortKey(Student::SORT_BY_POINTS);
+
+   arraySort(array, arraySize);
+
+   Student::setSortKey(srtKey);
+
+   if (arraySize >= 2 && arraySize % 2 == 0)
+      return(array[arraySize / 2 - 1].getTotalPoints() 
+      + array[arraySize / 2].getTotalPoints()) / 2;
+   if (arraySize >= 1 && arraySize % 2 == 1)
+      return array[arraySize / 2].getTotalPoints();
+   
+   return 0;
+}
+
+/* ------------------------------ run ----------------------------
+
+Before:
+Loq, Yuna points: 150
+Delta, Lance points: 98
+Simpson, Homer points: 5
+Mate, Coffee points: 198
+Lee, Tiff points: 200
+Pickles, Dill points: 120
+Shortman, Arnold points: 160
+High, Hau points: 180
+Chilipeppa, Lorena points: 190
+Sky, Sora points: 165
+Ryder, Flint points: 155
+Charming, Prince points: 175
+Gieser, Kai points: 184
+Dixon, Amanda points: 168
+Moore, Randi points: 188
+Dalin, Jenn points: 192
+
+After:
+Charming, Prince points: 175
+Chilipeppa, Lorena points: 190
+Dalin, Jenn points: 192
+Delta, Lance points: 98
+Dixon, Amanda points: 168
+Gieser, Kai points: 184
+High, Hau points: 180
+Lee, Tiff points: 200
+Loq, Yuna points: 150
+Mate, Coffee points: 198
+Moore, Randi points: 188
+Pickles, Dill points: 120
+Ryder, Flint points: 155
+Shortman, Arnold points: 160
+Simpson, Homer points: 5
+Sky, Sora points: 165
+
+Press any key to continue . . .
+
+---------------------------------------------------------------- */
